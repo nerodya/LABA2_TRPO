@@ -4,15 +4,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class App {
-
     private JFrame frame;
     private JPanel bottomPanel;
-    private Button ButtonСircle;
-    private Button ButtonRect;
+ //   private Button ButtonСircle;
+    private Button ButtonAdd;
     private Button ButtonColor;
     private Button ButtonAnimation;
     private Button ButtonDel;
     private DrawerPanel drawerPanel;
+    private final JComboBox shapesList;
 
     public static void main(String[] args) {
         App app = new App();
@@ -40,20 +40,25 @@ public class App {
         mainContainer.add(drawerPanel, BorderLayout.CENTER);
         mainContainer.add(bottomPanel, BorderLayout.SOUTH);
 
-        ButtonСircle = new Button("Добавить круг");
-        ButtonСircle.addActionListener(e -> drawerPanel.onAddСircle());
-        bottomPanel.add(ButtonСircle);
+//        ButtonСircle = new Button("Добавить круг");
+//        ButtonСircle.addActionListener(e -> drawerPanel.onAddСircle());
+//        bottomPanel.add(ButtonСircle);
+//
+//
+//        ButtonRect = new Button("Добавить прямоугольник");
+//        ButtonRect.addActionListener(e -> drawerPanel.onAddRect());
+//        bottomPanel.add(ButtonRect);
 
-        ButtonСircle = new Button("Добавить круг");
-        ButtonСircle.addActionListener(e -> drawerPanel.onAddСircle());
-        bottomPanel.add(ButtonСircle);
+        shapesList = new JComboBox(new String[]{"Круг", "Прямоугольник", "Овал", "Квадрат"});
+        shapesList.setSelectedIndex(0);
+        bottomPanel.add(shapesList);
 
-        ButtonRect = new Button("Добавить прямоугольник");
-        ButtonRect.addActionListener(e -> drawerPanel.onAddRect());
-        bottomPanel.add(ButtonRect);
+        ButtonAdd = new Button("Добавить");
+        ButtonAdd.addActionListener(e -> addShape());
+        bottomPanel.add(ButtonAdd);
 
         ButtonColor = new Button("Поменять у объектов цвет");
-        ButtonColor.addActionListener(e -> drawerPanel.onRepleceColor());
+        ButtonColor.addActionListener(e -> drawerPanel.onFullRepleceColor());
         bottomPanel.add(ButtonColor);
 
         ButtonAnimation = new Button("Анимация");
@@ -64,6 +69,18 @@ public class App {
         ButtonDel.addActionListener(e -> drawerPanel.onDel());
         bottomPanel.add(ButtonDel);
 
+    }
+
+    private void addShape() {
+
+        String str = shapesList.getSelectedItem().toString();
+
+        switch (str) {
+            case ("Круг") -> drawerPanel.onAddСircle();
+            case ("Прямоугольник") -> drawerPanel.onAddRect();
+            case ("Овал") -> drawerPanel.onAddOval();
+            case ("Квадрат") -> drawerPanel.onAddSquare();
+        }
     }
 
     public void Start() {

@@ -15,11 +15,11 @@ public class DrawerPanel extends JPanel {
                 x.setX(x.getX() + x.getSpeedX());
                 if (x.getY() <= 0 || x.getY() + x.getHeight() >= 550) {
                     x.setSpeedY(-x.getSpeedY());
-                    onRepleceColor();
+                    onRepleceColor(x);
                 }
                 if (x.getX() <= 0 || x.getX() + x.getWidth() >= 890) {
                     x.setSpeedX(-x.getSpeedX());
-                    onRepleceColor();
+                    onRepleceColor(x);
                 }
             }
             repaint();
@@ -31,14 +31,24 @@ public class DrawerPanel extends JPanel {
         shapes.add(circle);
         repaint();
     }
-
     public void onAddRect() {
         Rect rect = new Rect();
         rect.randomFill();
         shapes.add(rect);
         repaint();
     }
-
+    public void onAddSquare() {
+        Square square = new Square();
+        square.randomFill();
+        shapes.add(square);
+        repaint();
+    }
+    public void onAddOval() {
+        Oval Oval = new Oval();
+        Oval.randomFill();
+        shapes.add(Oval);
+        repaint();
+    }
     public void onDel() {
 //        shapes.clear();
 //        repaint();
@@ -50,7 +60,12 @@ public class DrawerPanel extends JPanel {
             new Exception().printStackTrace();
     }
 
-    public void onRepleceColor() {
+    public void onRepleceColor(Shape x) {
+            x.setColor();
+        repaint();
+    }
+
+    public void onFullRepleceColor(){
         for (Shape x : shapes)
             x.setColor();
         repaint();
@@ -65,7 +80,6 @@ public class DrawerPanel extends JPanel {
         }
     }
 }
-
 interface Present {
     void draw(Graphics g);
 }
@@ -121,10 +135,6 @@ abstract class Shape implements Present {
         this.y = y;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public void setWidth(int width) {
         this.width = width;
     }
@@ -162,23 +172,39 @@ abstract class Shape implements Present {
     }
 }
 
-class Circle extends Shape {
-
-    @Override
-    public void randomFill(){
-        super.randomFill();
-        this.setWidth(this.getHeight());
-    }
-
-    @Override
+class Oval extends Shape{
     public void draw(Graphics g) {
         g.setColor(getColor());
         g.fillOval(getX(), getY(), getWidth(), getHeight());
     }
 }
 
-class Rect extends Shape {
+class Circle extends Shape {
+    @Override
+    public void randomFill(){
+        super.randomFill();
+        this.setWidth(this.getHeight());
+    }
+    public void draw(Graphics g) {
+        g.setColor(getColor());
+        g.fillOval(getX(), getY(), getWidth(), getHeight());
+    }
+}
 
+class Square extends Shape {
+    @Override
+    public void randomFill(){
+        super.randomFill();
+        this.setWidth(this.getHeight());
+    }
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(getColor());
+        g.fillRect(getX(), getY(), getWidth(), getHeight());
+    }
+}
+
+class Rect extends Shape {
     @Override
     public void draw(Graphics g) {
         g.setColor(getColor());
