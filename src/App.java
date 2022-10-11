@@ -40,15 +40,6 @@ public class App {
         mainContainer.add(drawerPanel, BorderLayout.CENTER);
         mainContainer.add(bottomPanel, BorderLayout.SOUTH);
 
-//        ButtonСircle = new Button("Добавить круг");
-//        ButtonСircle.addActionListener(e -> drawerPanel.onAddСircle());
-//        bottomPanel.add(ButtonСircle);
-//
-//
-//        ButtonRect = new Button("Добавить прямоугольник");
-//        ButtonRect.addActionListener(e -> drawerPanel.onAddRect());
-//        bottomPanel.add(ButtonRect);
-
         shapesList = new JComboBox(new String[]{"Круг", "Прямоугольник", "Овал", "Квадрат"});
         shapesList.setSelectedIndex(0);
         bottomPanel.add(shapesList);
